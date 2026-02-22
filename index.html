@@ -40,7 +40,7 @@
         .vscode-layout {
             display: grid;
             grid-template-columns: 48px 250px 1fr; /* Adjusted activity bar width */
-            grid-template-rows: 1fr 200px 22px;
+            grid-template-rows: 1fr 22px;
             height: 100vh;
             width: 100vw;
         }
@@ -49,7 +49,7 @@
         .activity-bar {
             background-color: var(--vscode-activity-bar-bg);
             grid-column: 1;
-            grid-row: 1 / span 2;
+            grid-row: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -77,9 +77,9 @@
         .sidebar {
             background-color: var(--vscode-sidebar-bg);
             grid-column: 2;
-            grid-row: 1 / span 2;
+            grid-row: 1;
             border-right: 1px solid var(--vscode-border);
-            overflow-y: auto;
+            overflow-y: hidden; /* Changed from auto to hidden to handle flex children */
             display: flex;
             flex-direction: column;
             font-size: 15px; /* Boosted by 2pts */
@@ -205,13 +205,13 @@
         /* Terminal */
         .terminal {
             background-color: var(--vscode-bg);
-            grid-column: 3;
-            grid-row: 2;
-            border-top: 1px solid var(--vscode-border);
+            /* Removed grid positioning */
+            border-top: none; /* Handled by container */
             display: flex;
             flex-direction: column;
             font-family: var(--vscode-font-family);
             font-size: 12px;
+            height: 100%;
         }
         .terminal-header {
             display: flex;
@@ -248,7 +248,7 @@
         .status-bar {
             background-color: var(--vscode-status-bar-bg);
             grid-column: 1 / span 3;
-            grid-row: 3;
+            grid-row: 2;
             display: flex;
             justify-content: space-between;
             align-items: center;

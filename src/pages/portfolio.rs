@@ -32,6 +32,12 @@ pub fn portfolio() -> Html {
             description: "Local LLM-driven NPC simulation with 4 concurrent agents and complex memory hierarchy.",
             image_url: "https://placehold.co/600x400/252526/d4d4d4?text=Through+Their+Eyes",
         },
+        ProjectItem {
+            id: "cpu-ray-tracer",
+            title: "CPU Ray Tracer",
+            description: "A high-performance software ray tracer built from scratch.",
+            image_url: "https://placehold.co/600x400/252526/d4d4d4?text=CPU+Ray+Tracer",
+        },
     ];
 
     html! {

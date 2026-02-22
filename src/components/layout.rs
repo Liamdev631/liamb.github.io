@@ -2,7 +2,6 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use crate::router::Route;
 use crate::components::sidebar::Sidebar;
-use crate::components::terminal::Terminal;
 
 #[derive(Clone, PartialEq)]
 struct TabEntry {
@@ -15,39 +14,54 @@ fn route_to_tab(route: &Route) -> TabEntry {
     match route {
         Route::Home => TabEntry {
             route: Route::Home,
-            label: "home.html".to_string(),
+            label: "Home".to_string(),
             icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_html.svg" class="file-icon-img" alt="html" /> },
         },
         Route::About => TabEntry {
             route: Route::About,
-            label: "about.html".to_string(),
+            label: "About".to_string(),
             icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_html.svg" class="file-icon-img" alt="html" /> },
         },
         Route::Blog => TabEntry {
             route: Route::Blog,
-            label: "blog".to_string(),
+            label: "Blog".to_string(),
             icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/default_folder.svg" class="file-icon-img" alt="blog" /> },
+        },
+        Route::BlogTag { tag } => TabEntry {
+            route: Route::BlogTag { tag: tag.clone() },
+            label: format!("Tag: {}", tag),
+            icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/default_folder.svg" class="file-icon-img" alt="tag" /> },
         },
         Route::Portfolio => TabEntry {
             route: Route::Portfolio,
-            label: "portfolio".to_string(),
+            label: "Portfolio".to_string(),
             icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/default_folder.svg" class="file-icon-img" alt="portfolio" /> },
         },
         Route::Project { id } => match id.as_str() {
             "through-their-eyes" => TabEntry {
                 route: Route::Project { id: id.clone() },
-                label: "through_their_eyes.proj".to_string(),
+                label: "Through Their Eyes".to_string(),
+                icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_vcxproj.svg" class="file-icon-img" alt="proj" /> },
+            },
+            "cpu-ray-tracer" => TabEntry {
+                route: Route::Project { id: id.clone() },
+                label: "CPU Ray Tracer".to_string(),
                 icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_vcxproj.svg" class="file-icon-img" alt="proj" /> },
             },
             _ => TabEntry {
                 route: Route::Project { id: id.clone() },
-                label: "unknown.proj".to_string(),
+                label: "Unknown Project".to_string(),
                 icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/default_file.svg" class="file-icon-img" alt="file" /> },
             },
         },
+        Route::BlogPost { id } => TabEntry {
+            route: Route::BlogPost { id: id.clone() },
+            label: id.clone(),
+            icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_markdown.svg" class="file-icon-img" alt="md" /> },
+        },
         Route::NotFound => TabEntry {
             route: Route::NotFound,
-            label: "404.rs".to_string(),
+            label: "404 Not Found".to_string(),
             icon: html! { <img src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_rust.svg" class="file-icon-img" alt="rs" /> },
         },
     }
@@ -97,9 +111,7 @@ pub fn layout(props: &LayoutProps) -> Html {
                     <i class="codicon codicon-extensions" style="font-size: 24px;"></i>
                 </div>
             </div>
-            
             <Sidebar />
-            
             <div class="editor-area">
                 <div class="tab-bar">
                     { for (*tabs).iter().cloned().enumerate().map(|(index, tab)| {
@@ -174,7 +186,7 @@ pub fn layout(props: &LayoutProps) -> Html {
                             >
                                 { tab.icon.clone() }
                                 { tab.label.clone() }
-                                <span class="tab-close" style="margin-left: 10px; opacity: 0.5;" onclick={on_close}>{ "×" }</span>
+                                <span class="tab-close" style="margin-left: auto; opacity: 0.5;" onclick={on_close}>{ "×" }</span>
                             </div>
                         }
                     }) }
@@ -183,8 +195,6 @@ pub fn layout(props: &LayoutProps) -> Html {
                     { props.children.clone() }
                 </div>
             </div>
-            
-            <Terminal />
             
             <div class="status-bar">
                 <div class="status-left" style="display: flex;">
