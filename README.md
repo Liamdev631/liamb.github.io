@@ -1,25 +1,37 @@
-# Liam's Rust Portfolio
+# Liam's Portfolio
 
-This is a Rust-based portfolio built with [Yew](https://yew.rs/) and compiled to WebAssembly using [Trunk](https://trunkrs.dev/).
+A plain HTML/CSS/JS GitHub Pages portfolio for Liam Bury. No build step, no dependencies.
+
+## Stack
+
+- HTML
+- CSS (one stylesheet in `assets/style.css`)
+- JavaScript (none required at the moment)
+- GitHub Pages for hosting
 
 ## Local Development
 
-To run this project locally, you need to have Rust and `trunk` installed.
+Just open `index.html` in a browser, or serve the folder with any static server, for example:
 
-1.  **Install Rust**: https://rustup.rs/
-2.  **Install Trunk**:
-    ```bash
-    cargo install trunk
-    ```
-3.  **Run the development server**:
-    ```bash
-    trunk serve
-    ```
-    Open your browser at `http://localhost:8080`.
+```bash
+python -m http.server 8000
+```
+
+Then visit `http://localhost:8000`.
+
+## Layout
+
+- `index.html` — Home
+- `about.html` — About
+- `portfolio.html` — Portfolio index
+- `portfolio/*.html` — Individual project pages
+- `assets/style.css` — Shared stylesheet
 
 ## Deployment
 
-This project is configured to deploy automatically to GitHub Pages using GitHub Actions.
-Any push to the `main` branch will trigger a build and deployment to the `gh-pages` branch.
+Pushing to `main` publishes the site via GitHub Pages. In the repository settings, GitHub Pages should be configured with:
 
-Ensure your repository settings for GitHub Pages are configured to serve from the `gh-pages` branch.
+- **Source:** Deploy from a branch
+- **Branch:** `main` / root
+
+No workflow or build step is required.
